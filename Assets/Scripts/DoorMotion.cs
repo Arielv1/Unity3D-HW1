@@ -6,10 +6,12 @@ public class DoorMotion : MonoBehaviour
 {
     
     private Animator animator;
+    private AudioSource audioSource;
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -23,6 +25,7 @@ public class DoorMotion : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             animator.SetBool("opening", true);
+            audioSource.PlayDelayed(0.5f);
         }
     }
 
@@ -31,6 +34,7 @@ public class DoorMotion : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             animator.SetBool("opening", false);
+            audioSource.PlayDelayed(0.5f);
         }
     }
 }

@@ -8,11 +8,12 @@ public class MovementController : MonoBehaviour
     private CharacterController cc;
     [SerializeField] private float speed = 5f;
     [SerializeField] private float rotationSpeed = 0.001f;
-    private float rotX, rotY;
+    private float rotX, rotY, dx, dz;
+    private AudioSource footstepSound;
     // Start is called before the first frame update
     void Start()
     {
-        Cursor.visible = false;
+        footstepSound = GetComponent<AudioSource>();
         cc = GetComponent<CharacterController>();
     }
 
@@ -21,6 +22,7 @@ public class MovementController : MonoBehaviour
     {
         MovePlayer();
         LookAround();
+        PlayFootstepSound();
         /*transform.SetPositionAndRotation(
                 new Vector3(transform.position.x, transform.position.y, transform.position.z + speed),
                 transform.rotation);*/
@@ -37,8 +39,9 @@ public class MovementController : MonoBehaviour
 
     void MovePlayer()
     {
-        float dx = Input.GetAxis("Horizontal"); 
-        float dz = Input.GetAxis("Vertical");
+        dx = Input.GetAxis("Horizontal"); 
+        dz = Input.GetAxis("Vertical");
+
 
         Vector3 direction = new Vector3(dx, 0, dz).normalized * speed * Time.deltaTime;
 
@@ -48,5 +51,14 @@ public class MovementController : MonoBehaviour
         cc.Move(direction);
     }
 
+    void PlayFootstepSound()
+    {
+        Debug.Log(dx != 0f && dz != 0f);
+        if ((dx != 0f || dz != 0f) && !footstepSound.isPlaying)
+        {
+            Debug.Log("here\n");
+            footstepSound.Play();
+        }
+    }
 }
 
