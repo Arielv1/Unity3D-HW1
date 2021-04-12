@@ -53,10 +53,8 @@ public class MovementController : MonoBehaviour
 
     void PlayFootstepSound()
     {
-        Debug.Log(dx != 0f && dz != 0f);
         if ((dx != 0f || dz != 0f) && !footstepSound.isPlaying)
         {
-            Debug.Log("here\n");
             footstepSound.Play();
         }
     }
